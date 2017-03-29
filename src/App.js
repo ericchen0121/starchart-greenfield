@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
-// import LineMultipleChart from './LineMultipleChart';
 
 const data = [{date: '2017-03-01', dept: 'Sales', employee: 3, salary: 70000},
  {date: '2015-03-01', dept: 'Engineering', employee: 4, salary: 45000},
@@ -104,10 +103,10 @@ class App extends Component {
         <h2>Average Salary</h2>
         <BarChart data={this.averageSalaryByDept()} xData={'key'} yData={'value'}/>
         <h2>Total Headcount</h2>
-        <LineChart handleSalesFilter={this.handleSalesFilter} scale={{x: "linear", y: "linear"}} data={headcountData} xData={
-          'date'} yData={'headcount'} />
-        {/* <LineMultipleChart scale={{x: "linear", y: "linear"}} data={this.headCountData()} xData={
-          'date'} yData={'headcount'} /> */}
+        <div className='linechart'>
+          <LineChart handleSalesFilter={this.handleSalesFilter} scale={{x: "linear", y: "linear"}} data={headcountData} xData={
+            'date'} yData={'headcount'} />
+        </div>
       </div>
     );
   }
