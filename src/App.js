@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
+import LineMultipleChart from './LineMultipleChart';
 
 const data = [{date: '2017-03-01', dept: 'Sales', employee: 3, salary: 70000},
  {date: '2015-03-01', dept: 'Engineering', employee: 4, salary: 45000},
@@ -44,38 +45,64 @@ const data = [{date: '2017-03-01', dept: 'Sales', employee: 3, salary: 70000},
  {date: '2017-10-01', dept: 'Support', employee: 29, salary: 40000},
  {date: '2017-06-01', dept: 'Engineering', employee: 30, salary: 70000}]
 
-var salaryByDept = d3.nest()
-  .key((d) => d.dept)
-  .rollup((v) => d3.mean(v, (d) => d.salary))
-  .entries(data)
-
-// console.log(salaryByDept);
-var dataWithDates = data.map((d) => {
-  d.date = new Date(d.date)
-  return d;
-})
-// sorts from oldest to newest
-var timeAscendingData = dataWithDates.sort((a,b) => a.date - b.date)
-var dataWithHeadCount = timeAscendingData.map((d, index) => {
-  d.headcount = index + 1;
-  return d;
-})
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data
     }
+
+  }
+
+  componentWillMount() {
+    this.setState({headcountData: this.headCountData() })
+  }
+
+  handleSalesFilter = () => {
+    let {headcountData} = this.state;
+
+    let filteredSalesData = headcountData.filter((d) => { return d.dept === 'Support'})
+
+    this.setState({headcountData: filteredSalesData})
+  }
+
+  averageSalaryByDept = () => {
+    const { data } = this.state;
+    return d3.nest()
+      .key((d) => d.dept)
+      .rollup((v) => d3.mean(v, (d) => d.salary))
+      .entries(data)
+  }
+
+  headCountData() {
+    const { data } = this.state;
+
+    let dataWithDates = data.map((d) => {
+      d.date = new Date(d.date)
+      return d;
+    })
+    // sorts from oldest to newest
+    let timeAscendingData = dataWithDates.sort((a,b) => a.date - b.date)
+    let dataWithHeadCount = timeAscendingData.map((d, index) => {
+      d.headcount = index + 1;
+      return d;
+    })
+
+    return dataWithHeadCount;
   }
 
   render() {
+    const {headcountData} = this.state;
+
     return (
       <div>
-        <BarChart data={salaryByDept} xData={'key'} yData={'value'}/>
-        <LineChart scale={{x: "linear", y: "linear"}} data={dataWithHeadCount} xData={
+        <h2>Average Salary</h2>
+        <BarChart data={this.averageSalaryByDept()} xData={'key'} yData={'value'}/>
+        <h2>Total Headcount</h2>
+        <LineChart handleSalesFilter={this.handleSalesFilter} scale={{x: "linear", y: "linear"}} data={headcountData} xData={
           'date'} yData={'headcount'} />
-        }
+        {/* <LineMultipleChart scale={{x: "linear", y: "linear"}} data={this.headCountData()} xData={
+          'date'} yData={'headcount'} /> */}
       </div>
     );
   }
