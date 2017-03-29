@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import * as d3 from 'd3';
 
 class LineChart extends Component {
 
@@ -11,7 +12,7 @@ class LineChart extends Component {
       parent: {border: "1px solid red"}
     }
 
-    console.log('linechart', data);
+    console.log('linechart: d3', d3);
 
     return (
       <div>
@@ -20,8 +21,8 @@ class LineChart extends Component {
         <button onClick={handleSupportFilter}>Support</button> */}
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryAxis
-            tickCount={4}
-            tickFormat={['2014', '2015', '2016', '2017']}
+            tickCount={5}
+            tickFormat={d3.timeFormat("%Y")}
           />
           <VictoryAxis
             dependentAxis

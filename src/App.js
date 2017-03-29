@@ -51,7 +51,6 @@ class App extends Component {
     this.state = {
       data
     }
-
   }
 
   componentWillMount() {
