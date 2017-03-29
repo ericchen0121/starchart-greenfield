@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import BarChart from './BarChart';
+import LineChart from './LineChart';
 
 const data = [{date: '2017-03-01', dept: 'Sales', employee: 3, salary: 70000},
  {date: '2015-03-01', dept: 'Engineering', employee: 4, salary: 45000},
@@ -48,12 +49,34 @@ var salaryByDept = d3.nest()
   .rollup((v) => d3.mean(v, (d) => d.salary))
   .entries(data)
 
-console.log(salaryByDept);
+// console.log(salaryByDept);
+var dataWithDates = data.map((d) => {
+  d.date = new Date(d.date)
+  return d;
+})
+// sorts from oldest to newest
+var timeAscendingData = dataWithDates.sort((a,b) => a.date - b.date)
+var dataWithHeadCount = timeAscendingData.map((d, index) => {
+  d.headcount = index + 1;
+  return d;
+})
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data
+    }
+  }
+
   render() {
     return (
-      <BarChart data={salaryByDept} xData={'key'} yData={'value'}/>
+      <div>
+        <BarChart data={salaryByDept} xData={'key'} yData={'value'}/>
+        <LineChart scale={{x: "linear", y: "linear"}} data={dataWithHeadCount} xData={
+          'date'} yData={'headcount'} />
+        }
+      </div>
     );
   }
 }
