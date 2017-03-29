@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
-import LineMultipleChart from './LineMultipleChart';
+// import LineMultipleChart from './LineMultipleChart';
 
 const data = [{date: '2017-03-01', dept: 'Sales', employee: 3, salary: 70000},
  {date: '2015-03-01', dept: 'Engineering', employee: 4, salary: 45000},
@@ -55,15 +55,20 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.setState({headcountData: this.headCountData() })
+    this.calculateAndSetHeadCountData(this.state.data)
   }
+
+  // create filtered data state key
+  // update filtering of the original dataset;
+  // filter and REcalculate the headcount data
+  // pass in the headcount data
 
   handleSalesFilter = () => {
     let {headcountData} = this.state;
 
-    let filteredSalesData = headcountData.filter((d) => { return d.dept === 'Support'})
+    let filteredSalesData = headcountData.filter((d) => { return d.dept === 'Sales'})
 
-    this.setState({headcountData: filteredSalesData})
+    this.calculateAndSetHeadCountData(filteredSalesData)
   }
 
   averageSalaryByDept = () => {
@@ -74,8 +79,8 @@ class App extends Component {
       .entries(data)
   }
 
-  headCountData() {
-    const { data } = this.state;
+  // recalculates and sets new headcount key in data on a given dataset
+  calculateAndSetHeadCountData(data) {
 
     let dataWithDates = data.map((d) => {
       d.date = new Date(d.date)
@@ -88,8 +93,9 @@ class App extends Component {
       return d;
     })
 
-    return dataWithHeadCount;
+    this.setState({headcountData: dataWithHeadCount});
   }
+
 
   render() {
     const {headcountData} = this.state;
