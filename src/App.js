@@ -117,16 +117,6 @@ class App extends Component {
     this.setState({headcountData: dataWithHeadCount});
   }
 
-  // add a "label" key (which is necessary to render labels or tooltips to data
-  // the "key" argument is what you want the data to be based on
-  addLabelToData = (data, key) => {
-    // console.log('um', data, key)
-    // return data.map((d) => {
-    //   d.label = d[key]
-    // })
-    return data;
-  }
-
   render() {
     const {headcountData} = this.state;
 
@@ -134,7 +124,7 @@ class App extends Component {
       <div className='main_container'>
         <div className='chart'>
           <span className='chart_title'>AVERAGE SALARY</span>
-          <BarChart data={this.addLabelToData(this.averageSalaryByDept(), 'value')} xData={'key'} yData={'value'}/>
+          <BarChart data={this.averageSalaryByDept()} xData={'key'} yData={'value'} labelFromKey={'value'}/>
         </div>
         <div className='chart'>
           <span className='chart_title'>EMPLOYEE HEADCOUNT</span>

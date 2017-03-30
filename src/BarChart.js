@@ -3,6 +3,15 @@ import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryTooltip } f
 
 class BarChart extends Component {
 
+  // add a "label" key (which is necessary to render labels or tooltips to data
+  // the "key" argument is what you want the data to be based on
+  addLabelFromKey() {
+    let { data, labelFromKey } = this.props;
+    return data.map((d) => {
+      d.label = `$${ (d[labelFromKey] / 1000).toPrecision(3) }k`
+    })
+  }
+
   render() {
     const {data, xData, yData} = this.props;
     console.log('barchart', data)
@@ -15,6 +24,7 @@ class BarChart extends Component {
       <VictoryChart
         domainPadding={20}
         theme={VictoryTheme.material}
+        labelComponent={this.addLabelFromKey()}
       >
         <VictoryAxis
           tickFormat={data.map((d) => d[xData])}
