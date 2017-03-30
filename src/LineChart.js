@@ -23,6 +23,7 @@ class LineChart extends Component {
             dependentAxis
           />
           <VictoryLine theme={VictoryTheme.material}
+            animate={true}
             data={data}
             style={style}
             x={xData}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './LineChartFilter.css';
 
 class LineChartFilter extends Component {
 
