@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryTooltip } from 'victory';
 
 class BarChart extends Component {
+
   render() {
     const {data, xData, yData} = this.props;
+    console.log('barchart', data)
     const style = {
       data: {fill: "#058ef2", width: 9},
       labels: {fontSize: 12}
     }
-
 
     return (
       <VictoryChart
@@ -28,6 +29,7 @@ class BarChart extends Component {
           x={xData}
           y={yData}
           style={style}
+          labelComponent={<VictoryTooltip/>}
         />
       </VictoryChart>
     )

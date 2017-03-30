@@ -58,6 +58,11 @@ class App extends Component {
     this.calculateAndSetHeadCountData(this.state.data)
   }
 
+  // Filters for LineChartFilter
+  // TODO: can consolidate filters, ie. duplicate code
+  // NOTE: unable to pass argument in LineChartFilter callback without errors
+  // else could easily use switch statement
+  //
   handleSalesFilter = () => {
     let {data} = this.state;
     let filteredSalesData = data.filter((d) => { return d.dept === 'Sales'})
@@ -84,6 +89,8 @@ class App extends Component {
     this.calculateAndSetHeadCountData(data)
   }
 
+  // transforms data to calculate average
+  //
   averageSalaryByDept = () => {
     const { data } = this.state;
     return d3.nest()
@@ -93,6 +100,7 @@ class App extends Component {
   }
 
   // recalculates and sets new headcount key in data on a given dataset
+  //
   calculateAndSetHeadCountData(data) {
 
     let dataWithDates = data.map((d) => {
@@ -109,6 +117,15 @@ class App extends Component {
     this.setState({headcountData: dataWithHeadCount});
   }
 
+  // add a "label" key (which is necessary to render labels or tooltips to data
+  // the "key" argument is what you want the data to be based on
+  addLabelToData = (data, key) => {
+    // console.log('um', data, key)
+    // return data.map((d) => {
+    //   d.label = d[key]
+    // })
+    return data;
+  }
 
   render() {
     const {headcountData} = this.state;
@@ -117,7 +134,7 @@ class App extends Component {
       <div className='main_container'>
         <div className='chart'>
           <span className='chart_title'>AVERAGE SALARY</span>
-          <BarChart data={this.averageSalaryByDept()} xData={'key'} yData={'value'}/>
+          <BarChart data={this.addLabelToData(this.averageSalaryByDept(), 'value')} xData={'key'} yData={'value'}/>
         </div>
         <div className='chart'>
           <span className='chart_title'>EMPLOYEE HEADCOUNT</span>

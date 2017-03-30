@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme, VictoryTooltip } from 'victory';
 import * as d3 from 'd3';
 
 class LineChart extends Component {
@@ -21,7 +21,7 @@ class LineChart extends Component {
 
     return (
       <div>
-        <VictoryChart theme={VictoryTheme.material}>
+        <VictoryChart theme={VictoryTheme.material} >
           <VictoryAxis
             tickCount={4}
             tickFormat={d3.timeFormat("%Y")}
