@@ -23,8 +23,8 @@ class LineChart extends Component {
       <div>
         <VictoryChart theme={VictoryTheme.material} >
           <VictoryAxis
-            tickCount={4}
-            tickFormat={d3.timeFormat("%Y")}
+            tickCount={6}
+            tickFormat={d3.timeFormat("%-m/%Y")}
             style={styleAxis}
           />
           <VictoryAxis

@@ -14,15 +14,14 @@ class BarChart extends Component {
 
   render() {
     const {data, xData, yData} = this.props;
-    console.log('barchart', data)
     const style = {
-      data: {fill: "#058ef2", width: 9},
+      data: {fill: "#058ef2", width: 40},
       labels: {fontSize: 12}
     }
 
     return (
       <VictoryChart
-        domainPadding={20}
+        domainPadding={40}
         theme={VictoryTheme.material}
         labelComponent={this.addLabelFromKey()}
       >
