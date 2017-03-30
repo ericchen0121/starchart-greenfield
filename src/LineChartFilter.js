@@ -16,4 +16,11 @@ class LineChartFilter extends Component {
   }
 }
 
+LineChartFilter.propTypes = {
+  handleTotalFilter: React.PropTypes.func.isRequired,
+  handleSalesFilter: React.PropTypes.func.isRequired,
+  handleEngineeringFilter: React.PropTypes.func.isRequired,
+  handleSupportFilter: React.PropTypes.func.isRequired
+}
+
 export default LineChartFilter;

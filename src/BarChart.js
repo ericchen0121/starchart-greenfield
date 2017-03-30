@@ -6,8 +6,7 @@ class BarChart extends Component {
     const {data, xData, yData} = this.props;
     const style = {
       data: {fill: "#058ef2", width: 9},
-      labels: {fontSize: 12},
-      parent: {border: "1px solid red"}
+      labels: {fontSize: 12}
     }
 
 
@@ -24,7 +23,7 @@ class BarChart extends Component {
           tickFormat={(x) => `$${x/1000}k`}
         />
         <VictoryBar
-          animate={true}
+          animate={{ delay: 500, duration: 2000 }}
           data={data}
           x={xData}
           y={yData}
@@ -33,6 +32,18 @@ class BarChart extends Component {
       </VictoryChart>
     )
   }
+}
+
+BarChart.defaultProps = {
+    data: [],
+    xData: 'x',
+    yData: 'y'
+}
+
+BarChart.propTypes = {
+  data: React.PropTypes.array,
+  xData: React.PropTypes.string,
+  yData: React.PropTypes.string,
 }
 
 export default BarChart;
