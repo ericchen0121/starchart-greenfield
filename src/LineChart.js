@@ -5,20 +5,15 @@ import * as d3 from 'd3';
 class LineChart extends Component {
 
   render() {
-    const { data, xData, yData, handleSalesFilter } = this.props;
+    const { data, xData, yData } = this.props;
     const style = {
-      data: {stroke: "#c33b33"},
+      data: {stroke: "#058ef2"},
       labels: {fontSize: 12},
       parent: {border: "1px solid red"}
     }
 
-    console.log('linechart: d3', d3);
-
     return (
       <div>
-        <button onClick={handleSalesFilter}>Sales</button>
-        {/* <button onClick={handleEngineeringFilter}>Engineering</button>
-        <button onClick={handleSupportFilter}>Support</button> */}
         <VictoryChart theme={VictoryTheme.material}>
           <VictoryAxis
             tickCount={5}

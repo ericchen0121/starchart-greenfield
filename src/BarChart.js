@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 
 class BarChart extends Component {
   render() {
@@ -8,6 +8,7 @@ class BarChart extends Component {
     return (
       <VictoryChart
         domainPadding={20}
+        theme={VictoryTheme.material}
       >
         <VictoryAxis
           tickFormat={data.map((d) => d[xData])}

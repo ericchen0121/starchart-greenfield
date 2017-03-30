@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import BarChart from './BarChart';
 import LineChart from './LineChart';
+import LineChartFilter from './LineChartFilter';
+import './App.css';
 
 const data = [{date: '2017-03-01', dept: 'Sales', employee: 3, salary: 70000},
  {date: '2015-03-01', dept: 'Engineering', employee: 4, salary: 45000},
@@ -56,17 +58,30 @@ class App extends Component {
     this.calculateAndSetHeadCountData(this.state.data)
   }
 
-  // create filtered data state key
-  // update filtering of the original dataset;
-  // filter and REcalculate the headcount data
-  // pass in the headcount data
-
   handleSalesFilter = () => {
-    let {headcountData} = this.state;
-
-    let filteredSalesData = headcountData.filter((d) => { return d.dept === 'Sales'})
+    let {data} = this.state;
+    let filteredSalesData = data.filter((d) => { return d.dept === 'Sales'})
 
     this.calculateAndSetHeadCountData(filteredSalesData)
+  }
+
+  handleEngineeringFilter = () => {
+    let {data} = this.state;
+    let filteredSalesData = data.filter((d) => { return d.dept === 'Engineering'})
+
+    this.calculateAndSetHeadCountData(filteredSalesData)
+  }
+
+  handleSupportFilter = () => {
+    let {data} = this.state;
+    let filteredSalesData = data.filter((d) => { return d.dept === 'Support'})
+
+    this.calculateAndSetHeadCountData(filteredSalesData)
+  }
+
+  handleTotalFilter = () => {
+    let {data} = this.state;
+    this.calculateAndSetHeadCountData(data)
   }
 
   averageSalaryByDept = () => {
@@ -99,13 +114,21 @@ class App extends Component {
     const {headcountData} = this.state;
 
     return (
-      <div>
-        <h2>Average Salary</h2>
-        <BarChart data={this.averageSalaryByDept()} xData={'key'} yData={'value'}/>
-        <h2>Total Headcount</h2>
-        <div className='linechart'>
-          <LineChart handleSalesFilter={this.handleSalesFilter} scale={{x: "linear", y: "linear"}} data={headcountData} xData={
+      <div className='main_container'>
+        <div className='chart'>
+          <span className='chart_title'>AVERAGE SALARY</span>
+          <BarChart data={this.averageSalaryByDept()} xData={'key'} yData={'value'}/>
+        </div>
+        <div className='chart'>
+          <span className='chart_title'>EMPLOYEE HEADCOUNT</span>
+          <LineChart scale={{x: "linear", y: "linear"}} data={headcountData} xData={
             'date'} yData={'headcount'} />
+          <LineChartFilter
+            handleTotalFilter={this.handleTotalFilter}
+            handleSalesFilter={this.handleSalesFilter}
+            handleEngineeringFilter={this.handleEngineeringFilter}
+            handleSupportFilter={this.handleSupportFilter}
+          />
         </div>
       </div>
     );
