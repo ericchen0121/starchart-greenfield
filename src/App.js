@@ -130,6 +130,9 @@ class App extends Component {
             handleSupportFilter={this.handleSupportFilter}
           />
         </div>
+        <div>
+          <a className='link' href='https://github.com/ericchen0121/starchart-greenfield'>View Github code</a>
+        </div>
       </div>
     );
   }
